@@ -133,91 +133,107 @@ namespace _LFP_Proyecto2
 
         public void Analizartkn(String tkn)
         {
-            tkn.Trim();
+            //tkn.ToLower();
+            tkn.Trim();            
             switch (tkn)
             {
+                case "PRINCIPAL":
+                    token = "palabra reservada"; idtkn = 1;
+                    break;
                 case "Principal":
                     token = "palabra reservada"; idtkn = 1;
                     break;
                 case "principal":
                     token = "palabra reservada"; idtkn = 1;
+                    break;             
+                case "intervalo":
+                    token = "palabra reservada"; idtkn = 3;
                     break;
                 case "Intervalo":
                     token = "palabra reservada"; idtkn = 3;
                     break;
-                case "intervalo":
+                case "INTERVALO":
                     token = "palabra reservada"; idtkn = 3;
                     break;
                 case "Nivel":
                     token = "palabra reservada"; idtkn = 4;
                     break;
+                case "NIVEL":
+                    token = "palabra reservada"; idtkn = 4;
+                    break;
                 case "nivel":
                     token = "palabra reservada"; idtkn = 4;
+                    break;                
+                case "dimension":
+                    token = "palabra reservada"; idtkn = 5;
                     break;
                 case "Dimension":
                     token = "palabra reservada"; idtkn = 5;
                     break;
-                case "dimension":
-                    token = "palabra reservada"; idtkn = 5;
+                case "inicio_personaje":
+                    token = "palabra reservada"; idtkn = 6;
                     break;
                 case "Inicio_personaje":
                     token = "palabra reservada"; idtkn = 6;
                     break;
-                case "inicio_personaje":
-                    token = "palabra reservada"; idtkn = 6;
-                    break;
-                case "Ubicacion_salida":
-                    token = "palabra reservada"; idtkn = 7;
-                    break;
                 case "ubicacion_salida":
                     token = "palabra reservada"; idtkn = 7;
                     break;
-                case "Pared":
-                    token = "palabra reservada"; idtkn = 8;
+                case "Ubicación_Salida":
+                    token = "palabra reservada"; idtkn = 7;
                     break;
                 case "pared":
                     token = "palabra reservada"; idtkn = 8;
                     break;
-                case "Casilla":
-                    token = "palabra reservada"; idtkn = 9;
+                case "Pared":
+                    token = "palabra reservada"; idtkn = 8;
                     break;
                 case "casilla":
                     token = "palabra reservada"; idtkn = 9;
                     break;
-                case "Varias_casillas":
-                    token = "palabra reservada"; idtkn = 10;
+                case "Casilla":
+                    token = "palabra reservada"; idtkn = 9;
                     break;
                 case "varias_casillas":
                     token = "palabra reservada"; idtkn = 10;
                     break;
-                case "Enemigo":
-                    token = "palabra reservada"; idtkn = 11;
+                case "Varias_Casillas":
+                    token = "palabra reservada"; idtkn = 10;
                     break;
                 case "enemigo":
                     token = "palabra reservada"; idtkn = 11;
                     break;
-                case "Caminata":
-                    token = "palabra reservada"; idtkn = 12;
+                case "Enemigo":
+                    token = "palabra reservada"; idtkn = 11;
+                    break;
+                case "ENEMIGO":
+                    token = "palabra reservada"; idtkn = 11;
                     break;
                 case "caminata":
                     token = "palabra reservada"; idtkn = 12;
                     break;
-                case "Personaje":
-                    token = "palabra reservada"; idtkn = 13;
+                case "Caminata":
+                    token = "palabra reservada"; idtkn = 12;
                     break;
                 case "personaje":
                     token = "palabra reservada"; idtkn = 13;
                     break;
-                case "Paso":
-                    token = "palabra reservada"; idtkn = 14;
+                case "Personaje":
+                    token = "palabra reservada"; idtkn = 13;
+                    break;
+                case "PERSONAJE":
+                    token = "palabra reservada"; idtkn = 13;
                     break;
                 case "paso":
                     token = "palabra reservada"; idtkn = 14;
                     break;
-                case "Variable":
-                    token = "palabra reservada"; idtkn = 15;
+                case "Paso":
+                    token = "palabra reservada"; idtkn = 14;
                     break;
                 case "variable":
+                    token = "palabra reservada"; idtkn = 15;
+                    break;
+                case "Variable":
                     token = "palabra reservada"; idtkn = 15;
                     break;
                 case "[":
@@ -262,6 +278,9 @@ namespace _LFP_Proyecto2
                 case "}":
                     token = "Signo corchete cerrado"; idtkn = 29;
                     break;
+                case "=":
+                    token = "Signo igual"; idtkn = 31;
+                   break;                    
                 default:
                     token = "cadena"; idtkn = 30;
                     break;
@@ -287,17 +306,13 @@ namespace _LFP_Proyecto2
 
         public void Ejecutar()
         {
-            Funcionalidad fun = new Funcionalidad();            
-            fun.Principal(datos);
-            fun.Nivel(datos);
-            fun.Enemigo(datos);
-            fun.Personaje(datos);
-            Form2 frm = new Form2();
-            frm.ShowDialog();
-            if (frm.DialogResult == DialogResult.Yes)
-            {
+            Funcionalidad fun = new Funcionalidad();                                                            
+            fun.FunNivel(datos); // se utiliza para obtener el tamaño del formulario                   
+        }
 
-            }
+        public List<Lista> getToken()
+        {
+            return this.datos;
         }
     }
 }

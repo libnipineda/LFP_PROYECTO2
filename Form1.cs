@@ -14,7 +14,12 @@ namespace _LFP_Proyecto2
 {
     public partial class Form1 : Form
     {
-        Lexico lexico = new Lexico();        
+        Lexico lexico = new Lexico();
+        Sintactico sin = new Sintactico();
+        List<Lista> datos = new List<Lista>();
+        MemoryStream userInput = new MemoryStream();
+
+        String abrirR, guardarR, nombreA;
 
         public Form1()
         {
@@ -30,40 +35,57 @@ namespace _LFP_Proyecto2
             var dato = abrir.ShowDialog();
                if (dato == DialogResult.OK)
                {
+                abrirR = abrir.FileName;
+                nombreA = abrir.Title;
                 StreamReader leer = new StreamReader(abrir.FileName);
                 richTextBox1.Text = leer.ReadToEnd();
                 leer.Close();
                }
+            Console.WriteLine(abrirR);
         }
 
         private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // mejorar forma de guardar
-            SaveFileDialog guardar = new SaveFileDialog();
-            guardar.Filter = "Archivo|*.DIS";
-            guardar.Title = "Guardar Como";
-            guardar.FileName = "Sin Titulo";
-            var dato = guardar.ShowDialog();
-            if (dato == DialogResult.OK)
+            // mejorar forma de guardar            
+            if ( abrirR != guardarR)
             {
-                StreamWriter escribir = new StreamWriter(guardar.FileName);
+                StreamWriter escribir = new StreamWriter(abrirR);
                 foreach (object item in richTextBox1.Lines)
                 {
                     escribir.WriteLine(item);
                 }
                 escribir.Close();
             }
+            else
+            {
+                SaveFileDialog guardar = new SaveFileDialog();
+                guardar.Filter = "Archivo|*.DIS";
+                guardar.Title = "Guardar Como";
+                guardar.FileName = "Sin Titulo";
+                var dato = guardar.ShowDialog();
+                if (dato == DialogResult.OK)
+                {
+                    StreamWriter escribir = new StreamWriter(guardar.FileName);
+                    foreach (object item in richTextBox1.Lines)
+                    {
+                        escribir.WriteLine(item);
+                    }
+                    escribir.Close();
+                }
+            }
+
         }
 
         private void guardarComoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog guardar = new SaveFileDialog();
-            guardar.Filter = "Archivo|*.DIS";
+            guardar.Filter = ".DSI|*.DIS";
             guardar.Title = "Guardar Como";
             guardar.FileName = "Sin Titulo";
             var dato = guardar.ShowDialog();
                if (dato == DialogResult.OK)
                {
+                  guardarR = guardar.FileName;
                   StreamWriter escribir = new StreamWriter(guardar.FileName);
                   foreach (object item in richTextBox1.Lines)
                   {
@@ -71,6 +93,7 @@ namespace _LFP_Proyecto2
                   }
                 escribir.Close();
                }
+            Console.WriteLine("Ruta archivo guardado: "+ guardarR);
         }
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -83,30 +106,32 @@ namespace _LFP_Proyecto2
 
         private void analizarToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            datos.Clear();
             lexico.Analisis(richTextBox1.Text);
-            //lexico.Tablatkn();
-            //lexico.TablaEtkn();
+            sin.Parsear(lexico.getToken());
+            lexico.Tablatkn();
+            lexico.TablaEtkn();
         }
 
         private void tableroDeJuegoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            lexico.Ejecutar();
-            //Form2 frm = new Form2();
-            //frm.ShowDialog();
-            //if (frm.DialogResult == DialogResult.Yes)
-            //{
-
-            //}
+            lexico.Ejecutar();            
         }
 
         private void manualDeUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-         //   Process.Start(@"C: \Users\Aarón\Documents\Lenguajes\Proyecto 2\[LFP]Proyecto2_201403541\Manual Tecnico.pdf");
+            System.Diagnostics.Process temp = new System.Diagnostics.Process();
+            temp.StartInfo.FileName = "E:\\Lenguajes\\segundo semestre 2018\\laboratorio\\Proyecto2\\[LFP]Proyecto2_201403541\\Manual Usuario.pdf";
+            temp.Start();
+            temp.Close();
         }
 
         private void manualTecnicoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-         //   Process.Start(@"C: \Users\Aarón\Documents\Lenguajes\Proyecto 2\[LFP]Proyecto2_201403541\Manual de Usuario.pdf");
+            System.Diagnostics.Process temp = new System.Diagnostics.Process();
+            temp.StartInfo.FileName = "E:\\Lenguajes\\segundo semestre 2018\\laboratorio\\Proyecto2\\[LFP]Proyecto2_201403541\\Manual Técnico.pdf";
+            temp.Start();
+            temp.Close();
         }
 
         private void acercaDeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -114,6 +139,16 @@ namespace _LFP_Proyecto2
             MessageBox.Show(
                 "LFP PROYECTO\n Uzzi Libni Aarón Pineda Solórzano\n carné:201403541 \n Sección: A-",
                 "Acerca de...");
+        }
+
+        private void archivoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ayudaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
