@@ -110,7 +110,7 @@ namespace _LFP_Proyecto2
             lexico.Analisis(richTextBox1.Text);
             sin.Parsear(lexico.getToken());
             lexico.Tablatkn();
-            lexico.TablaEtkn();
+            //lexico.TablaEtkn();
         }
 
         private void tableroDeJuegoToolStripMenuItem_Click(object sender, EventArgs e)

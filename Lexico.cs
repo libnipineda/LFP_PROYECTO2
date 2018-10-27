@@ -26,14 +26,14 @@ namespace _LFP_Proyecto2
             {
                 switch (estado)
                 {
-                    case 0:
+                    case 0:                        
                         if (((char)09).Equals(cadena[i]) | ((char)10).Equals(cadena[i]) | ((char)32).Equals(cadena[i])) // tecla tab, salto de linea , espacio
                         {
                             estado = 0; fila++; columna++;
                         }
                         else if (((char)40).Equals(cadena[i])|((char)41).Equals(cadena[i])|((char)42).Equals(cadena[i])|((char)43).Equals(cadena[i])|((char)44).Equals(cadena[i])|((char)45).Equals(cadena[i]) | ((char)46).Equals(cadena[i]) | ((char)47).Equals(cadena[i]) |((char)58).Equals(cadena[i]) |((char)59).Equals(cadena[i])|((char)61).Equals(cadena[i]) |((char)91).Equals(cadena[i]) | ((char)93).Equals(cadena[i]) | ((char)123).Equals(cadena[i]) | ((char)125).Equals(cadena[i])) // caracter * + - , :  ;  = [ ] { }  ( ) .
-                        {
-                            estado = 1; concatenar += cadena[i]; columna++;
+                        {                            
+                            estado = 1; concatenar += cadena[i]; columna++;                            
                         }
                         else if (char.IsNumber(cadena[i]))
                         {
@@ -58,16 +58,34 @@ namespace _LFP_Proyecto2
                         }
                         break;
                     case 1:
-                        Analizartkn(concatenar); i--; estado = estado - 1; estado = 0;
-                        Lista temp1 = new Lista();
-                        temp1.numero = "" + nutken;
-                        temp1.fila = "" + fila;
-                        temp1.columna = "" + columna;
-                        temp1.idtkn = "" + idtkn;
-                        temp1.tkn = token;
-                        temp1.lexema = concatenar;
+                        //MessageBox.Show(concatenar + i.ToString() + cadena[i]);
+                        string a = concatenar + cadena[i];
+                        if (a == "..")
+                        {                            
+                            concatenar = concatenar + ".";
+                            Analizartkn(concatenar); estado = estado - 1; estado = 0;
+                            Lista temp1 = new Lista();
+                            temp1.numero = "" + nutken;
+                            temp1.fila = "" + fila;
+                            temp1.columna = "" + columna;
+                            temp1.idtkn = "" + idtkn;
+                            temp1.tkn = token;
+                            temp1.lexema = concatenar;
+                            datos.Add(temp1); nutken++; concatenar = "";
+                        }
+                        else
+                        {
+                            Analizartkn(concatenar); i--; estado = estado - 1; estado = 0;
+                            Lista temp1 = new Lista();
+                            temp1.numero = "" + nutken;
+                            temp1.fila = "" + fila;
+                            temp1.columna = "" + columna;
+                            temp1.idtkn = "" + idtkn;
+                            temp1.tkn = token;
+                            temp1.lexema = concatenar;
+                            datos.Add(temp1); nutken++; concatenar = "";
+                        }
                         //Console.WriteLine("dato: " + concatenar);
-                        datos.Add(temp1); nutken++; concatenar = "";
                         break;
                     case 2:
                         if (char.IsNumber(cadena[i]))
@@ -164,10 +182,10 @@ namespace _LFP_Proyecto2
                 case "nivel":
                     token = "palabra reservada"; idtkn = 4;
                     break;                
-                case "dimension":
+                case "dimensiones":
                     token = "palabra reservada"; idtkn = 5;
                     break;
-                case "Dimension":
+                case "Dimensiones":
                     token = "palabra reservada"; idtkn = 5;
                     break;
                 case "inicio_personaje":

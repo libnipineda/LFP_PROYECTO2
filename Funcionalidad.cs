@@ -76,16 +76,12 @@ namespace _LFP_Proyecto2
 
         public void DimensionForm()
         {
+            //MessageBox.Show("Tamaño del formulario " + "(" + DimX + "," + DimY + ")");
             if (DimX > 3 & DimX <21 || DimY > 3 & DimY <16)
             {
                 MessageBox.Show("Tamaño del formulario " + "(" + DimX + "," + DimY + ")");
-                Form2 frm = new Form2();
-                frm.ShowDialog();
-                if (frm.DialogResult == DialogResult.Yes)
-                {                   
-                }
-                frm.Width += DimX;
-                frm.Height += DimY;
+                Form2 frm = new Form2(DimX, DimY);
+                frm.Show();
             }
             else
             {
